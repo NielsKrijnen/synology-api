@@ -1,6 +1,7 @@
 import { Auth } from "./services/auth";
 import { Core } from "./services/core";
 import { DSM } from "./services/dsm";
+import { FileStation } from "./services/file-station";
 
 type Config = {
   /** IP-address or QuickConnect ID. For example: 192.168.1.8 or nasid.quickconnect.to */
@@ -45,5 +46,9 @@ export class SynologyAPI {
 
   get dsm() {
     return new DSM(this.settings)
+  }
+
+  get fileStation() {
+    return new FileStation(this.settings)
   }
 }

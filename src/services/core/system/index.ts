@@ -1,5 +1,5 @@
 import { Base } from "../..";
-import { SystemInfo, SystemNetwork, SystemUtilization, SystemVolume } from "./types";
+import { SystemHealth, SystemInfo, SystemNetwork, SystemProcess, SystemUtilization, SystemVolume } from "./types";
 
 export class System extends Base {
   info() {
@@ -26,14 +26,12 @@ export class System extends Base {
     return this.request<SystemVolume>("SYNO.Core.System", "info", { type: "storage_v2" })
   }
 
-  /** Returns undefined */
   health() {
-    return this.request<undefined>("SYNO.Core.System.SystemHealth", "get")
+    return this.request<SystemHealth>("SYNO.Core.System.SystemHealth", "get")
   }
 
-  /** Returns undefined */
   process() {
-    return this.request<undefined>("SYNO.Core.System.Process", "list")
+    return this.request<SystemProcess>("SYNO.Core.System.Process", "list")
   }
 
   utilization() {

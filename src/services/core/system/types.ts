@@ -218,3 +218,34 @@ export type SystemUtilization = {
   }
   time: number
 }
+
+export type SystemHealth = {
+  hostname: string
+  interfaces: {
+    id: string
+    ip: string
+    type: string
+  }[]
+  rule: {
+    description: {
+      description_format: string
+      description_params: string[]
+      description_use_formatted: boolean
+    }
+    id: string
+    priority: number
+    type: number
+  }
+  uptime: string
+}
+
+export type SystemProcess = {
+  process: {
+    command: string
+    cpu: number
+    mem: number
+    mem_shared: number
+    pid: number
+    status: string
+  }[]
+}

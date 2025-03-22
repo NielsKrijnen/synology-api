@@ -1,7 +1,30 @@
 import { Base } from ".";
+import { APIResponse } from "./types";
 
 export class Auth extends Base {
-  login() {
-    return this.get()
+  async login(params: {
+    account: string
+    passwd: string
+    otp_code?: string
+  }) {
+    const response = await this.auth("login", 7, {
+      format: "cookie",
+      enable_syno_token: "yes",
+      ...params
+    })
+    const json = await response.json() as APIResponse<{
+      account: string
+      device_id: string
+      sid: string
+      is_portal_port: boolean
+      synotoken: string
+    }>
+    if (json.success) {
+      this.settings.headers["X-SYNO-TOKEN"] = json.data.synotoken
+      this.settings.sid = json.data.sid
+      return json.data
+    } else {
+      throw json
+    }
   }
 }

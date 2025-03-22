@@ -1,5 +1,6 @@
 import { Settings } from "../client";
 import { APIResponse } from "./types";
+import { APIConfig } from "../config";
 
 export class Base {
   constructor(protected readonly settings: Settings) {}
@@ -26,7 +27,7 @@ export class Base {
     return this.getRequest("auth.cgi", "SYNO.API.Auth", method, version, params)
   }
 
-  protected async entry<T extends Record<string, any>>(api: string, method: string, version: number, params?: Record<string, string>) {
+  protected async entry<T>(api: string, method: string, version: number, params?: Record<string, string>) {
     const response = await this.getRequest("entry.cgi", api, method, version, params)
     const json = await response.json() as APIResponse<T>
     if (json.success) {
@@ -36,7 +37,7 @@ export class Base {
     }
   }
 
-  protected async request<T extends Record<string, any>>() {
-
+  protected async request<T>(api: keyof typeof APIConfig, method: string, params?: Record<string, string>) {
+    return this.entry<T>(api, method, APIConfig[api], params)
   }
 }

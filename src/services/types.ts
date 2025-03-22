@@ -1,4 +1,4 @@
-export type APIResponse<T extends Record<string, any>> = {
+export type APIResponse<T> = {
   data: T
   success: true
 } | {

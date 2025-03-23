@@ -1,5 +1,3 @@
-import { FileStation } from "./index";
-
 export type FileStationInfo = {
   enable_list_usergrp: boolean
   enable_send_email_attachment: boolean
@@ -28,76 +26,89 @@ export type FileStationShares<A extends FileStationParamsAdditional[] = []> = {
     isdir: boolean
     name: string
     path: string
-    additional: A extends [] ? undefined : {
-      [K in A[number]]:
-        K extends "real_path" ? string :
-        K extends "volume_status" ? {
-          freespace: number
-          readonly: boolean
-          totalspace: number
-        } :
-        K extends "mount_point_type" ? string :
-        K extends "owner" ? {
-          gid: number
-          group: string
-          uid: number
-          user: string
-        } :
-        K extends "perm" ? {
-          acl: {
-            append: boolean
-            del: boolean
-            exec: boolean
-            read: boolean
-            write: boolean
-          }
-          acl_enable: boolean
-          adv_right: {
-            disable_download: boolean
-            disable_list: boolean
-            disable_modify: boolean
-          }
-          is_acl_mode: boolean
-          is_share_readonly: boolean
-          /**  POSIX file permission, For example, 777 means owner, group or other has all permission; 764 means owner has all permission, group has read/write permission, other has read permission. */
-          posix: number
-          /** "RW": The shared folder is writable; "RO": the shared folder is read-only. */
-          share_right: "RW" | "RO"
-        } :
-        K extends "sync_share" ? boolean :
-        K extends "time" ? {
-          /** Linux timestamp of last access in second. */
-          atime: number
-          /** Linux timestamp of create time in second. */
-          crtime: number
-          /** Linux timestamp of last change in second. */
-          ctime: number
-          /** Linux timestamp of last modification in second. */
-          mtime: number
-        } : undefined
-    }
+    additional: FileStationAdditional<A>
   }[]
   total: number
 }
 
 export type FileStationSortBy = "name" | "user" | "group" | "mtime" | "atime" | "ctime" | "crtime" | "posix"
 
+export type FileStationSortDirection = "asc" | "desc"
+
 export type FileStationSharesParams<A extends string[] = FileStationParamsAdditional[]> = {
   offset?: number
   limit?: number
-  sort_by?: "name" | "user" | "group" | "mtime" | "atime" | "ctime" | "crtime" | "posix"
-  sort_direction?: "asc" | "desc"
+  sort_by?: FileStationSortBy
+  sort_direction?: FileStationSortDirection
   onlywritable?: boolean
   additional?: A
 }
 
-export type FileStationParamsAdditional = "real_path" | "owner" | "time" | "perm" | "mount_point_type" | "sync_share" | "volume_status"
-
-export type FileStationFiles = {
-
+export type FileStationAdditional<A extends FileStationParamsAdditional[]> = A extends [] ? undefined : {
+  [K in A[number]]:
+    K extends "real_path" ? string :
+    K extends "volume_status" ? {
+      freespace: number
+      readonly: boolean
+      totalspace: number
+    } :
+    K extends "size" ? number :
+    K extends "type" ? string :
+    K extends "mount_point_type" ? string :
+    K extends "owner" ? {
+      gid: number
+      group: string
+      uid: number
+      user: string
+    } :
+    K extends "perm" ? {
+      acl: {
+        append: boolean
+        del: boolean
+        exec: boolean
+        read: boolean
+        write: boolean
+      }
+      acl_enable: boolean
+      adv_right: {
+        disable_download: boolean
+        disable_list: boolean
+        disable_modify: boolean
+      }
+      is_acl_mode: boolean
+      is_share_readonly: boolean
+      /**  POSIX file permission, For example, 777 means owner, group or other has all permission; 764 means owner has all permission, group has read/write permission, other has read permission. */
+      posix: number
+      /** "RW": The shared folder is writable; "RO": the shared folder is read-only. */
+      share_right: "RW" | "RO"
+    } :
+    K extends "sync_share" ? boolean :
+    K extends "time" ? {
+      /** Linux timestamp of last access in second. */
+      atime: number
+      /** Linux timestamp of create time in second. */
+      crtime: number
+      /** Linux timestamp of last change in second. */
+      ctime: number
+      /** Linux timestamp of last modification in second. */
+      mtime: number
+    } : undefined
 }
 
-export type FileStationFilesParams = {
+export type FileStationParamsAdditional = "real_path" | "owner" | "time" | "perm" | "mount_point_type" | "sync_share" | "volume_status"
+
+export type FileStationFiles<A extends FileStationParamsAdditional[] = []> = {
+  files: {
+    isdir: boolean
+    name: string
+    path: string
+    additional: FileStationAdditional<A>
+  }[]
+  offset: number
+  total: number
+}
+
+export type FileStationFilesParams<A extends string[] = FileStationParamsAdditional[]> = {
   /** A listed folder path starting with a shared folder. */
   folder_path: string
   /** Optional. Specify how many files are skipped before beginning to return listed files. */
@@ -124,11 +135,10 @@ export type FileStationFilesParams = {
    Options include:
    asc: sort ascending.
    desc: sort descending. */
-  sort_direction?: "asc" | "desc"
+  sort_direction?: FileStationSortDirection
   /** Optional. Given glob pattern(s)
    to find files whose names and
-   extensions match a case
-   insensitive glob pattern.
+   extensions match a case-insensitive glob pattern.
    Note:
    1. If the pattern doesn't
    contain any glob syntax (? and
@@ -144,7 +154,7 @@ export type FileStationFilesParams = {
    only enumerate folders; "all"
    enumerate regular files and
    folders. */
-  filetype?: "file" | "dir" | "all"
+  filetype?: FileStationFiletype
   /** Optional. Folder path starting
    with a shared folder. Return all
    files and sub-folders within
@@ -170,5 +180,104 @@ export type FileStationFilesParams = {
    - **perm**: return information about file permission.
    - **mount_point_type**: return a type of virtual file system of a mount point.
    - **type**: return a file extension. */
-  additional?: FileStationParamsAdditional
+  additional?: A
 }
+
+export type FileStationFile<A extends FileStationParamsAdditional[] = []> = Omit<FileStationFiles<A>, "offset" | "total">
+
+export type FileStationFileParams<A extends string[] = FileStationParamsAdditional[]> = {
+  path: string | string[]
+  additional?: A
+}
+
+export type FileStationStartSearchParams = {
+  /**  A searched folder path starting with a
+   shared folder. One or more folder paths to
+   be searched. */
+  folder_path: string | string[]
+  /**  Optional. If searching files within a folder
+   and subfolders recursively or not. */
+  recursive?: boolean
+  /** Optional. Search for files whose names
+   and extensions match a case-insensitive
+   glob pattern.
+   Note:
+   1. If the pattern doesn't contain any glob
+   syntax (? and *), * of glob syntax will be
+   added at begin and end of the string
+   automatically for partially matching the
+   pattern.
+   2. You can use " " to separate multiple
+   glob patterns. */
+  pattern?: string
+  /**  Optional. Search for files whose
+   extensions match a file type pattern in a
+   case-insensitive glob pattern. If you give
+   this criterion, folders aren't matched.
+   Note: You can use commas "," to separate
+   multiple glob patterns. */
+  extension?: string
+  /** Optional. "file": enumerate regular files;
+   "dir": enumerate folders; "all" enumerate
+   regular files and folders. */
+  filetype?: FileStationFiletype
+  /** Optional. Search for files whose sizes are
+   greater than the given byte size. */
+  size_from?: number
+  /** Optional. Search for files whose sizes are
+   less than the given byte size. */
+  size_to?: number
+  /**  Optional. Search for files whose last
+   modified time after the given Linux
+   timestamp in second. */
+  mtime_from?: number
+  /** Optional. Search for files whose last
+   modified time before the given Linux
+   timestamp in second. */
+  mtime_to?: number
+  /** Optional. Search for files whose create
+   time after the given Linux timestamp in
+   second. */
+  crtime_from?: number
+  /** Optional. Search for files whose create
+   time before the given Linux timestamp in
+   second. */
+  crtime_to?: number
+  /** Optional. Search for files whose last
+   access time after the given Linux
+   timestamp in second. */
+  atime_from?: number
+  /** Optional. Search for files whose last
+   access time before the given Linux
+   timestamp in second. */
+  atime_to?: number
+  /** Optional. Search for files whose username matches this criterion. This criterion
+   is case-insensitive. */
+  owner?: string
+  /** Optional. Search for files whose group
+   name matches this criterion. This criterion
+   is case-insensitive. */
+  group?: string
+}
+
+// TODO: Documentation
+export type FileStationListSearch<A extends FileStationParamsAdditional[] = []> = {
+  total: number
+  offset: number
+  finished: boolean
+  files: FileStationFiles<A>["files"]
+}
+
+// TODO: Documentation
+export type FileStationListSearchParams<A extends string[] = FileStationParamsAdditional[]> = {
+  taskid: string
+  offset?: number
+  limit?: number
+  sort_by?: FileStationSortBy | "type" | "size"
+  sort_direction?: FileStationSortDirection
+  pattern?: string
+  filetype?: FileStationFiletype
+  additional?: A
+}
+
+export type FileStationFiletype = "file" | "dir" | "all"

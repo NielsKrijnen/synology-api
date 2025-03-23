@@ -12,5 +12,6 @@ export const APIConfig = {
   "SYNO.Core.BandwidthControl.Protocol": 1,
   "SYNO.DSM.Info": 2,
   "SYNO.FileStation.Info": 2,
-  "SYNO.FileStation.List": 2
+  "SYNO.FileStation.List": 2,
+  "SYNO.FileStation.Search": 2
 } as const satisfies APIConfig

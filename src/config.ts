@@ -13,5 +13,6 @@ export const APIConfig = {
   "SYNO.DSM.Info": 2,
   "SYNO.FileStation.Info": 2,
   "SYNO.FileStation.List": 2,
-  "SYNO.FileStation.Search": 2
+  "SYNO.FileStation.Search": 2,
+  "SYNO.FileStation.Thumb": 2
 } as const satisfies APIConfig

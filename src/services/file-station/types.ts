@@ -281,3 +281,24 @@ export type FileStationListSearchParams<A extends string[] = FileStationParamsAd
 }
 
 export type FileStationFiletype = "file" | "dir" | "all"
+
+export type FileStationThumbnailParams = {
+  /** A file path starting with a shared folder. */
+  path: string
+  /** Optional. Return different size
+   thumbnail.
+   Size Options:
+   - **small**: small-size thumbnail.
+   - **medium**: medium-size thumbnail.
+   - **large**: large-size thumbnail.
+   - **original**: original-size thumbnail. */
+  size?: "small" | "medium" | "large" | "original"
+  /** Optional. Return rotated thumbnail.
+   Rotate Options:
+   - 0: Do not rotate.
+   - 1: Rotate 90°.
+   - 2: Rotate 180°.
+   - 3: Rotate 270°.
+   - 4: Rotate 360°. */
+  rotate?: 0 | 1 | 2 | 3 | 4
+}

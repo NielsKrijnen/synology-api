@@ -8,7 +8,7 @@ import {
   FileStationFiles,
   FileStationFileParams,
   FileStationFile,
-  FileStationStartSearchParams, FileStationListSearchParams, FileStationListSearch
+  FileStationStartSearchParams, FileStationListSearchParams, FileStationListSearch, FileStationThumbnailParams
 } from "./types";
 
 export class FileStation extends Base {
@@ -46,5 +46,9 @@ export class FileStation extends Base {
   // TODO: Test
   async cleanSearch(taskId: string | string[]) {
     await this.request("SYNO.FileStation.Search", "clean", { taskid: taskId })
+  }
+
+  getThumbnail(params: FileStationThumbnailParams) {
+    return this.request("SYNO.FileStation.Thumb", "get", params)
   }
 }

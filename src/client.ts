@@ -3,6 +3,7 @@ import { Core } from "./services/core";
 import { DSM } from "./services/dsm";
 import { FileStation } from "./services/file-station";
 import { VPNServer } from "./services/vpn-server";
+import { API } from "./services/api";
 
 type Config = {
   /** IP-address or QuickConnect ID. For example: 192.168.1.8 or nasid.quickconnect.to */
@@ -23,6 +24,7 @@ export class SynologyAPI {
     headers: {},
     hostname: ""
   }
+  private api = new API(this.settings)
 
   constructor(config: Config) {
     if (config.server.includes("quickconnect")) {
@@ -35,6 +37,10 @@ export class SynologyAPI {
 
     if (config.synoToken) this.settings.headers["X-SYNO-TOKEN"] = config.synoToken
     this.settings.sid = config.sid
+  }
+
+  info() {
+    return this.api.info()
   }
 
   get auth() {

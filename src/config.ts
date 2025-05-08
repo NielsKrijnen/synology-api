@@ -1,6 +1,7 @@
 type APIConfig = Record<string, number>
 
 export const APIConfig = {
+  "SYNO.API.Info": 1,
   "SYNO.ActiveInsight.CompleteCollection": 2,
   "SYNO.Core.System": 3,
   "SYNO.Core.System.Status": 1,

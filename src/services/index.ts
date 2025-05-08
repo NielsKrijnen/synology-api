@@ -41,7 +41,7 @@ export class Base {
     if (json.success) {
       return json.data
     } else {
-      throw json
+      throw json.error
     }
   }
 

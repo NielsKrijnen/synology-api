@@ -24,7 +24,7 @@ export class Auth extends Base {
       this.settings.sid = json.data.sid
       return json.data
     } else {
-      throw json
+      throw json.error
     }
   }
 }

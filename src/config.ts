@@ -14,5 +14,7 @@ export const APIConfig = {
   "SYNO.FileStation.Info": 2,
   "SYNO.FileStation.List": 2,
   "SYNO.FileStation.Search": 2,
-  "SYNO.FileStation.Thumb": 2
+  "SYNO.FileStation.Thumb": 2,
+  "SYNO.VPNServer.Settings.Config": 1,
+  "SYNO.VPNServer.Management.Connection": 1
 } as const satisfies APIConfig

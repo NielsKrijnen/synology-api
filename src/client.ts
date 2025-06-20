@@ -20,6 +20,7 @@ export type Settings = {
   sid?: string
 }
 
+// noinspection JSUnusedGlobalSymbols
 export class SynologyAPI {
   private settings: Settings = {
     headers: {},

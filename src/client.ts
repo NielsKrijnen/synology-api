@@ -4,6 +4,7 @@ import { DSM } from "./services/dsm";
 import { FileStation } from "./services/file-station";
 import { VPNServer } from "./services/vpn-server";
 import { API } from "./services/api";
+import { Backup } from "./services/backup";
 
 type Config = {
   /** IP-address or QuickConnect ID. For example: 192.168.1.8 or nasid.quickconnect.to */
@@ -41,6 +42,10 @@ export class SynologyAPI {
 
   info() {
     return this.api.info()
+  }
+
+  get backup() {
+    return new Backup(this.settings)
   }
 
   get auth() {

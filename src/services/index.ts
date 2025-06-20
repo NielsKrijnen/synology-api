@@ -16,11 +16,13 @@ export class Base {
     url.searchParams.set("version", version.toString())
     if (params) {
       for (const key in params) {
-        let value = params[key]
-        if (isArray(value)) {
-          value = `["${value.join('","')}"]`
+        if (params[key] !== undefined) {
+          let value = params[key]
+          if (isArray(value)) {
+            value = `["${value.join('","')}"]`
+          }
+          url.searchParams.set(key, value.toString())
         }
-        url.searchParams.set(key, value.toString())
       }
     }
 

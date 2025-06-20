@@ -37,4 +37,10 @@ export class System extends Base {
   utilization() {
     return this.request<SystemUtilization>("SYNO.Core.System.Utilization", "get")
   }
+
+  getResetButton() {
+    return this.request<{
+      retain_admin_pwd: boolean
+    }>("SYNO.Core.System.ResetButton", "get")
+  }
 }

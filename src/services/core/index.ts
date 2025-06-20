@@ -2,6 +2,7 @@ import { Base } from "..";
 import { System } from "./system";
 import { BandwidthControl } from "./bandwidth-control";
 import { Hardware } from "./hardware";
+import { Group } from "./group";
 
 export class Core extends Base {
   async cmsInfo() {
@@ -18,6 +19,10 @@ export class Core extends Base {
 
   get hardware() {
     return new Hardware(this.settings)
+  }
+
+  get group() {
+    return new Group(this.settings)
   }
 
   getUpgradeStatus() {
@@ -124,58 +129,6 @@ export class Core extends Base {
       type: string
       use_dhcp: boolean
     }[]>("SYNO.Core.Network.Interface", "list")
-  }
-
-  listGroups(params?: {
-    user?: string
-  }) {
-    return this.request<{
-      groups: {
-        description: string
-        gid: number
-        name: string
-      }[]
-      offset: number
-      total: number
-    }>("SYNO.Core.Group", "list", { name_only: false, ...params })
-  }
-
-  listGroupMembers(params: {
-    group: string
-    ingroup?: boolean
-  }) {
-    return this.request<{
-      offset: number
-      total: number
-      users: {
-        description: string
-        name: string
-        uid: number
-      }[]
-    }>("SYNO.Core.Group.Member", "list", params)
-  }
-
-  getGroupAdminCheck(params: {
-    name: string | string[]
-  }) {
-    return this.request<{
-      groups: {
-        is_admin: boolean
-        name: string
-      }[]
-    }>("SYNO.Core.Group", "admin_check", params)
-  }
-
-  async createGroup(params: {
-    name: string
-  }) {
-    await this.request("SYNO.Core.Group", "create", params)
-  }
-
-  async deleteGroup(params: {
-    name: string | string[]
-  }) {
-    await this.request("SYNO.Core.Group", "delete", params)
   }
 
   listSharePermissionsByUser(params: {

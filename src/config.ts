@@ -13,6 +13,8 @@ export const APIConfig = {
   "SYNO.Core.Share": 1,
   "SYNO.Core.Package": 1,
   "SYNO.Core.User": 1,
+  "SYNO.Core.User.PasswordPolicy": 1,
+  "SYNO.Core.User.PasswordExpiry": 1,
   "SYNO.Core.Group": 1,
   "SYNO.Core.Hardware.PowerRecovery": 1,
   "SYNO.Core.Upgrade": 1,

@@ -166,6 +166,18 @@ export class Core extends Base {
     }>("SYNO.Core.Group", "admin_check", params)
   }
 
+  async createGroup(params: {
+    name: string
+  }) {
+    await this.request("SYNO.Core.Group", "create", params)
+  }
+
+  async deleteGroup(params: {
+    name: string | string[]
+  }) {
+    await this.request("SYNO.Core.Group", "delete", params)
+  }
+
   listSharePermissionsByUser(params: {
     name: string
     user_group_type: "local_user"

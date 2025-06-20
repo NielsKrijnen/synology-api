@@ -67,6 +67,24 @@ export class Core extends Base {
     }>("SYNO.Core.User", "list", params)
   }
 
+  getUser(params: {
+    name: string
+    additional?: ("description" | "email" | "expired" | "cannot_chg_passwd" | "passwd_never_expire" | "password_last_change")[]
+  }) {
+    return this.request<{
+      users: [{
+        name: string
+        uid: number
+        cannot_chg_passwd?: boolean
+        description?: string
+        email?: string
+        expired?: "normal" | "now" | string
+        passwd_never_expire?: boolean
+        password_last_change?: number
+      }]
+    }>("SYNO.Core.User", "get", params)
+  }
+
   getPasswordPolicy() {
     return this.request<{
       enable_reset_passwd_by_email: boolean
@@ -96,7 +114,21 @@ export class Core extends Base {
     }>("SYNO.Core.User.PasswordExpiry", "get")
   }
 
-  listGroups() {
+  listNetworkInterfaces() {
+    return this.request<{
+      ifname: string
+      ip: string
+      mask: string
+      speed: number
+      status: string
+      type: string
+      use_dhcp: boolean
+    }[]>("SYNO.Core.Network.Interface", "list")
+  }
+
+  listGroups(params?: {
+    user?: string
+  }) {
     return this.request<{
       groups: {
         description: string
@@ -105,6 +137,6 @@ export class Core extends Base {
       }[]
       offset: number
       total: number
-    }>("SYNO.Core.Group", "list", { name_only: false })
+    }>("SYNO.Core.Group", "list", { name_only: false, ...params })
   }
 }

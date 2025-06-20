@@ -52,4 +52,14 @@ export class Group extends Base {
   }) {
     await this.request("SYNO.Core.Group", "delete", params)
   }
+
+  set(params: {
+    name: string
+    new_name?: string
+  }) {
+    return this.request<{
+      name: string
+      gid: number
+    }>("SYNO.Core.Group", "set", params)
+  }
 }

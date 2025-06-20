@@ -139,4 +139,52 @@ export class Core extends Base {
       total: number
     }>("SYNO.Core.Group", "list", { name_only: false, ...params })
   }
+
+  listGroupMembers(params: {
+    group: string
+    ingroup?: boolean
+  }) {
+    return this.request<{
+      offset: number
+      total: number
+      users: {
+        description: string
+        name: string
+        uid: number
+      }[]
+    }>("SYNO.Core.Group.Member", "list", params)
+  }
+
+  getGroupAdminCheck(params: {
+    name: string | string[]
+  }) {
+    return this.request<{
+      groups: {
+        is_admin: boolean
+        name: string
+      }[]
+    }>("SYNO.Core.Group", "admin_check", params)
+  }
+
+  listSharePermissionsByUser(params: {
+    name: string
+    user_group_type: "local_user"
+  }) {
+    return this.request<{
+      shares: {
+        inherit: string
+        is_aclmode: boolean
+        is_custom: boolean
+        is_deny: boolean
+        is_mask: boolean
+        is_readonly: boolean
+        is_sync_share: boolean
+        is_unit_permission: boolean
+        is_writable: boolean
+        name: string
+        share_path: string
+      }[]
+      total: number
+    }>("SYNO.Core.Share.Permission", "list_by_user", params)
+  }
 }

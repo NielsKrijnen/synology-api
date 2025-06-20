@@ -20,6 +20,7 @@ export const APIConfig = {
   "SYNO.Core.Group": 1,
   "SYNO.Core.Group.Member": 1,
   "SYNO.Core.Hardware.PowerRecovery": 1,
+  "SYNO.Core.Hardware.FanSpeed": 1,
   "SYNO.Core.Upgrade": 1,
   "SYNO.Core.CMS.Info": 1,
   "SYNO.Core.BandwidthControl": 2,

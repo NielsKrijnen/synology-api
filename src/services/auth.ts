@@ -27,4 +27,8 @@ export class Auth extends Base {
       throw json.error
     }
   }
+
+  async logout() {
+    await this.request("SYNO.API.Auth", "logout")
+  }
 }

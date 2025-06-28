@@ -11,6 +11,7 @@ export const APIConfig = {
   "SYNO.Core.System.SystemHealth": 1,
   "SYNO.Core.System.Process": 1,
   "SYNO.Core.System.ResetButton": 1,
+  "SYNO.Storage.CGI.Storage": 1,
   "SYNO.Core.Share": 1,
   "SYNO.Core.Share.Permission": 1,
   "SYNO.Core.Package": 1,

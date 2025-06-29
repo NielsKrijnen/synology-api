@@ -7,7 +7,7 @@ import { API } from "./services/api";
 import { Backup } from "./services/backup";
 
 type Config = {
-  /** IP-address or QuickConnect ID. For example: 192.168.1.8 or nasid.quickconnect.to */
+  /** IP-address or QuickConnect ID. For example, 192.168.1.8 or nasid.quickconnect.to */
   server: string
   sid?: string
   synoToken?: string

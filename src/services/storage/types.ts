@@ -393,3 +393,97 @@ export type StorageInfo = {
   storagePools: StoragePool[]
   volumes: Volume[]
 }
+
+export type HealthInfo = {
+  count: number;
+  history: {
+    incremental: HistoryData;
+    single: HistoryData;
+  };
+  overview: Overview;
+  smartInfo: SmartAttribute[];
+};
+
+type HistoryData = {
+  idnf: [number, number][];
+  offset: number;
+  remainLife: number[][];
+  retry: [number, number][];
+  unc: [number, number][];
+};
+
+type Overview = {
+  adv_key: string;
+  adv_modifiable: boolean;
+  adv_modified: boolean;
+  adv_progress: string;
+  adv_scheduled: boolean;
+  adv_section: string;
+  adv_status: string;
+  adv_test_code: string;
+  below_remain_life_mail_notify_thr: boolean;
+  below_remain_life_show_thr: boolean;
+  below_remain_life_thr: boolean;
+  compatibility: string;
+  disk_code: string;
+  disk_error_reset_fail_status: string;
+  disk_error_timeout_status: string;
+  disk_error_unc_status: string;
+  idnf: number;
+  ihm_schedule_list: any[];
+  isNVMeDisk: boolean;
+  isSataDisk: boolean;
+  isSsd: boolean;
+  isSynoDrive: boolean;
+  is_bundle_ssd: boolean;
+  low_performance_in_raid: string;
+  low_performance_in_raid_disk_list: string;
+  overview_status: string;
+  overview_weight: number;
+  poweron: string;
+  read_only: boolean;
+  remain_life: number;
+  remain_life_attr: string;
+  remain_life_danger: boolean;
+  remain_life_disable: number;
+  remain_life_suppress: number;
+  retry: number;
+  sb_days_left: number;
+  sb_days_left_critical: boolean;
+  sb_days_left_warning: boolean;
+  scheduled: boolean;
+  seq_status: string;
+  smart: string;
+  smartInfo_support: number;
+  smart_disable: number;
+  smart_fail: any[];
+  smart_fail_critical: boolean;
+  smart_fail_past: boolean;
+  smart_fail_repeat: boolean;
+  smart_info: string;
+  smart_progress: string;
+  smart_schedule_list: {
+    next_trigger_time: string;
+  }[];
+  smart_suppress: number;
+  smart_test: string;
+  smart_test_disable: number;
+  smart_test_limit: number;
+  smart_test_suppress: number;
+  ssd_bad_block_over_thr: boolean;
+  unc: number;
+  wdda_disable: number;
+  wdda_modifiable: boolean;
+  wdda_status: string;
+  wdda_suppress: number;
+};
+
+type SmartAttribute = {
+  current: string;
+  id: string;
+  name: string;
+  raw: string;
+  status: string;
+  threshold: string;
+  worst: string;
+};

@@ -19,6 +19,8 @@ export const APIConfig = {
   "SYNO.Core.User.PasswordPolicy": 1,
   "SYNO.Core.User.PasswordExpiry": 1,
   "SYNO.Core.Network.Interface": 1,
+  "SYNO.Core.Storage.Disk": 1,
+  "SYNO.Storage.CGI.Smart": 1,
   "SYNO.Core.Group": 1,
   "SYNO.Core.Group.Member": 1,
   "SYNO.Core.Hardware.PowerRecovery": 1,

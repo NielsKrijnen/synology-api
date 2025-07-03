@@ -5,6 +5,7 @@ import { FileStation } from "./services/file-station";
 import { VPNServer } from "./services/vpn-server";
 import { API } from "./services/api";
 import { Backup } from "./services/backup";
+import { Storage } from "./services/storage";
 
 type Fetch = (input: string | URL | globalThis.Request, init?: RequestInit) => Promise<Response>
 
@@ -74,6 +75,10 @@ export class SynologyAPI {
 
   get fileStation() {
     return new FileStation(this.settings)
+  }
+
+  get storage() {
+    return new Storage(this.settings)
   }
 
   get vpn() {

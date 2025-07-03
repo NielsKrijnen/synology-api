@@ -6,18 +6,22 @@ import { VPNServer } from "./services/vpn-server";
 import { API } from "./services/api";
 import { Backup } from "./services/backup";
 
+type Fetch = (input: string | URL | globalThis.Request, init?: RequestInit) => Promise<Response>
+
 type Config = {
   /** IP-address or QuickConnect ID. For example, 192.168.1.8 or nasid.quickconnect.to */
   server: string
   sid?: string
   synoToken?: string
   port?: number
+  fetch?: Fetch
 }
 
 export type Settings = {
   headers: Record<string, string>
   hostname: string
   protocol: "http" | "https"
+  fetch: Fetch
   sid?: string
 }
 
@@ -26,6 +30,7 @@ export class SynologyAPI {
   private settings: Settings = {
     headers: {},
     protocol: "https",
+    fetch,
     hostname: ""
   }
   private api = new API(this.settings)
@@ -40,6 +45,8 @@ export class SynologyAPI {
       this.settings.hostname = `${config.server}:${config.port ?? 5001}`
       this.settings.protocol = "http"
     }
+
+    if (config.fetch) this.settings.fetch = config.fetch
 
     if (config.synoToken) this.settings.headers["X-SYNO-TOKEN"] = config.synoToken
     this.settings.sid = config.sid

@@ -28,7 +28,7 @@ export class Base {
 
     if (this.settings.sid) url.searchParams.set("_sid", this.settings.sid)
 
-    return fetch(url, {
+    return this.settings.fetch(url, {
       headers: this.settings.headers,
       redirect: "follow"
     })

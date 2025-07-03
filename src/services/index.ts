@@ -10,7 +10,7 @@ export class Base {
   constructor(protected readonly settings: Settings) {}
 
   private getRequest(path: "entry.cgi" | "auth.cgi", api: string, method: string, version: number, params?: Record<string, any>) {
-    const url = new URL(`https://${this.settings.hostname}/webapi/${path}`);
+    const url = new URL(`${this.settings.protocol}://${this.settings.hostname}/webapi/${path}`);
     url.searchParams.set("api", api);
     url.searchParams.set("method", method);
     url.searchParams.set("version", version.toString())

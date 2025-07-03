@@ -17,6 +17,7 @@ type Config = {
 export type Settings = {
   headers: Record<string, string>
   hostname: string
+  protocol: "http" | "https"
   sid?: string
 }
 
@@ -24,6 +25,7 @@ export type Settings = {
 export class SynologyAPI {
   private settings: Settings = {
     headers: {},
+    protocol: "https",
     hostname: ""
   }
   private api = new API(this.settings)
@@ -33,8 +35,10 @@ export class SynologyAPI {
       this.settings.headers["Referer"] = config.server
       const quickconnectId = config.server.split('.')[0]
       this.settings.hostname = `${quickconnectId}.de8.quickconnect.to`
+      this.settings.protocol = "https"
     } else {
       this.settings.hostname = `${config.server}:${config.port ?? 5001}`
+      this.settings.protocol = "http"
     }
 
     if (config.synoToken) this.settings.headers["X-SYNO-TOKEN"] = config.synoToken

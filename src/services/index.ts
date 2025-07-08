@@ -9,8 +9,32 @@ function isArray(value: any): value is Array<any> {
 export class Base {
   constructor(protected readonly settings: Settings) {}
 
-  private getRequest(path: "entry.cgi" | "auth.cgi", api: string, method: string, version: number, params?: Record<string, any>) {
-    const url = new URL(`${this.settings.protocol}://${this.settings.hostname}/webapi/${path}`);
+  private async getRequest(path: "entry.cgi" | "auth.cgi", api: string, method: string, version: number, params?: Record<string, any>) {
+    if (!this.settings.region && this.settings.hostname.includes("quickconnect")) {
+      const response = await fetch("https://global.quickconnect.to/Serv.php", {
+        method: "POST",
+        body: JSON.stringify([
+          {
+            version: 1,
+            command: "get_server_info",
+            stop_when_error: false,
+            stop_when_success: false,
+            id: "mainapp_https",
+            serverID: this.settings.hostname.split('.')[0],
+            is_gofile: false,
+            path: ""
+          }
+        ])
+      })
+      const info = await response.json()
+      if (info[0].env.relay_region) {
+        this.settings.region = info[0].env.relay_region
+      }
+    }
+
+    const hostname = this.settings.hostname.includes("quickconnect") ? `${this.settings.hostname.split('.')[0]}.${this.settings.region}.quickconnect.to` : this.settings.hostname
+
+    const url = new URL(`${this.settings.protocol}://${hostname}/webapi/${path}`);
     url.searchParams.set("api", api);
     url.searchParams.set("method", method);
     url.searchParams.set("version", version.toString())
@@ -40,7 +64,12 @@ export class Base {
 
   protected async entry<T>(api: string, method: string, version: number, params?: Record<string, any>) {
     const response = await this.getRequest("entry.cgi", api, method, version, params)
-    const json = await response.json() as APIResponse<T>
+    let json: APIResponse<T>
+    try {
+      json = await response.clone().json()
+    } catch {
+      throw await response.text()
+    }
     if (json.success) {
       return json.data
     } else {

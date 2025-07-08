@@ -14,6 +14,7 @@ type Config = {
   server: string
   sid?: string
   synoToken?: string
+  region?: string
   port?: number
   fetch?: Fetch
 }
@@ -23,6 +24,7 @@ export type Settings = {
   hostname: string
   protocol: "http" | "https"
   fetch: Fetch
+  region?: string
   sid?: string
 }
 
@@ -40,13 +42,14 @@ export class SynologyAPI {
     if (config.server.includes("quickconnect")) {
       this.settings.headers["Referer"] = config.server
       const quickconnectId = config.server.split('.')[0]
-      this.settings.hostname = `${quickconnectId}.de8.quickconnect.to`
+      this.settings.hostname = `${quickconnectId}.quickconnect.to`
       this.settings.protocol = "https"
     } else {
       this.settings.hostname = `${config.server}:${config.port ?? 5001}`
       this.settings.protocol = "http"
     }
 
+    if (config.region) this.settings.region = config.region
     if (config.fetch) this.settings.fetch = config.fetch
 
     if (config.synoToken) this.settings.headers["X-SYNO-TOKEN"] = config.synoToken

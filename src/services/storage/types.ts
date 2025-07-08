@@ -395,13 +395,15 @@ export type StorageInfo = {
 }
 
 export type HealthInfo = {
-  count: number;
-  history: {
-    incremental: HistoryData;
-    single: HistoryData;
-  };
-  overview: Overview;
-  smartInfo: SmartAttribute[];
+  healthInfo: {
+    count: number;
+    history: {
+      incremental: HistoryData;
+      single: HistoryData;
+    };
+    overview: Overview;
+    smartInfo: SmartAttribute[];
+  }
 };
 
 type HistoryData = {

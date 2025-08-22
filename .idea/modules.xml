@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/SynologyAPI.iml" filepath="$PROJECT_DIR$/.idea/SynologyAPI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/synology-api.iml" filepath="$PROJECT_DIR$/.idea/synology-api.iml" />
     </modules>
   </component>
 </project>

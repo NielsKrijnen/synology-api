@@ -12,13 +12,18 @@ export class Auth extends Base {
       enable_syno_token: "yes",
       ...params
     })
-    const json = await response.json() as APIResponse<{
+    let json: APIResponse<{
       account: string
       device_id: string
       sid: string
       is_portal_port: boolean
       synotoken: string
     }>
+    try {
+      json = await response.clone().json()
+    } catch {
+      throw await response.text()
+    }
     if (json.success) {
       this.settings.headers["X-SYNO-TOKEN"] = json.data.synotoken
       this.settings.sid = json.data.sid
@@ -26,5 +31,9 @@ export class Auth extends Base {
     } else {
       throw json.error
     }
+  }
+
+  async logout() {
+    await this.request("SYNO.API.Auth", "logout")
   }
 }

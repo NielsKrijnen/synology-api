@@ -3,6 +3,8 @@ import { System } from "./system";
 import { BandwidthControl } from "./bandwidth-control";
 import { Hardware } from "./hardware";
 import { Group } from "./group";
+import { Upgrade } from "./upgrade";
+import { Report } from "./report";
 
 export class Core extends Base {
   async cmsInfo() {
@@ -25,11 +27,12 @@ export class Core extends Base {
     return new Group(this.settings)
   }
 
-  getUpgradeStatus() {
-    return this.request<{
-      allow_upgrade: boolean
-      status: string
-    }>("SYNO.Core.Upgrade", "status")
+  get upgrade() {
+    return new Upgrade(this.settings)
+  }
+
+  get report() {
+    return new Report(this.settings)
   }
 
   listPackages() {

@@ -5,6 +5,7 @@ import { Hardware } from "./hardware";
 import { Group } from "./group";
 import { Upgrade } from "./upgrade";
 import { Report } from "./report";
+import { PackageService } from "./package";
 
 export class Core extends Base {
   async cmsInfo() {
@@ -35,16 +36,8 @@ export class Core extends Base {
     return new Report(this.settings)
   }
 
-  listPackages() {
-    return this.request<{
-      packages: {
-        id: string
-        name: string
-        timestamp: number
-        version: `${number}.${number}.${number}-${number}`
-      }[]
-      total: number
-    }>("SYNO.Core.Package", "list")
+  get package() {
+    return new PackageService(this.settings)
   }
 
   listShares() {

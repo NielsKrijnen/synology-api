@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.0.3",
-    "@typescript/native-preview": "^7.0.0-dev.20250822.1",
+    "@typescript/native-preview": "^7.0.0-dev.20250912.1",
     "tsup": "^8.3.5"
   }
 }

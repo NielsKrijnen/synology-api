@@ -1,13 +1,21 @@
 import { Base } from "../..";
-import { SystemHealth, SystemInfo, SystemNetwork, SystemProcess, SystemUtilization, SystemVolume } from "./types";
+import { SystemProcess, SystemUtilization } from "./types";
+import { Status } from "./status";
+import { SystemHealthService } from "./system-health";
 
 export class System extends Base {
-  info() {
-    return this.request<SystemInfo>("SYNO.Core.System", "info")
+  get status() {
+    return new Status(this.settings)
   }
 
-  status() {
-    return this.request<{ is_system_crashed: boolean, upgrade_ready: boolean }>("SYNO.Core.System.Status", "get")
+  get systemHealth() {
+    return new SystemHealthService(this.settings)
+  }
+
+  info(params?: { type?: "network" | "storage_v2" }) {
+    return this.request<Record<string, any>>("SYNO.Core.System", "info", {
+      type: params?.type
+    })
   }
 
   shutdown() {
@@ -16,18 +24,6 @@ export class System extends Base {
 
   reboot() {
     return this.request("SYNO.Core.System", "reboot")
-  }
-
-  network() {
-    return this.request<SystemNetwork>("SYNO.Core.System", "info", { type: "network" })
-  }
-
-  volume() {
-    return this.request<SystemVolume>("SYNO.Core.System", "info", { type: "storage_v2" })
-  }
-
-  health() {
-    return this.request<SystemHealth>("SYNO.Core.System.SystemHealth", "get")
   }
 
   process() {

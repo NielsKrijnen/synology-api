@@ -10,29 +10,7 @@ export class Base {
   constructor(protected readonly settings: Settings) {}
 
   private async getRequest(path: "entry.cgi" | "auth.cgi", api: string, method: string, version: number, params?: Record<string, any>) {
-    if (!this.settings.region && this.settings.hostname.includes("quickconnect")) {
-      const response = await fetch("https://global.quickconnect.to/Serv.php", {
-        method: "POST",
-        body: JSON.stringify([
-          {
-            version: 1,
-            command: "get_server_info",
-            stop_when_error: false,
-            stop_when_success: false,
-            id: "mainapp_https",
-            serverID: this.settings.hostname.split('.')[0],
-            is_gofile: false,
-            path: ""
-          }
-        ])
-      })
-      const info = await response.json()
-      if (info[0].env.relay_region) {
-        this.settings.region = info[0].env.relay_region
-      }
-    }
-
-    const hostname = this.settings.hostname.includes("quickconnect") ? `${this.settings.hostname.split('.')[0]}.${this.settings.region}.quickconnect.to` : this.settings.hostname
+    const hostname = this.settings.hostname.includes("quickconnect") ? `${this.settings.hostname.split('.')[0]}.${this.settings.region ?? "fr1"}.quickconnect.to` : this.settings.hostname
 
     const url = new URL(`${this.settings.protocol}://${hostname}/webapi/${path}`);
     url.searchParams.set("api", api);

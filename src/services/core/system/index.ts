@@ -1,15 +1,29 @@
 import { Base } from "../..";
-import { SystemProcess, SystemUtilization } from "./types";
 import { Status } from "./status";
 import { SystemHealthService } from "./system-health";
+import { ResetButtonService } from "./reset-button";
+import { UtilizationService } from "./utilization";
+import { ProcessService } from "./process";
 
 export class System extends Base {
   get status() {
-    return new Status(this.settings)
+    return new Status(this._settings)
   }
 
   get systemHealth() {
-    return new SystemHealthService(this.settings)
+    return new SystemHealthService(this._settings)
+  }
+
+  get process() {
+    return new ProcessService(this._settings)
+  }
+
+  get utilization() {
+    return new UtilizationService(this._settings)
+  }
+
+  get resetButton() {
+    return new ResetButtonService(this._settings)
   }
 
   info(params?: { type?: "network" | "storage_v2" }) {
@@ -24,19 +38,5 @@ export class System extends Base {
 
   reboot() {
     return this.request("SYNO.Core.System", "reboot")
-  }
-
-  process() {
-    return this.request<SystemProcess>("SYNO.Core.System.Process", "list")
-  }
-
-  utilization() {
-    return this.request<SystemUtilization>("SYNO.Core.System.Utilization", "get")
-  }
-
-  getResetButton() {
-    return this.request<{
-      retain_admin_pwd: boolean
-    }>("SYNO.Core.System.ResetButton", "get")
   }
 }

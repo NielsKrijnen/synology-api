@@ -7,12 +7,16 @@ function isArray(value: any): value is Array<any> {
 }
 
 export class Base {
-  constructor(protected readonly settings: Settings) {}
+  protected readonly _settings: Settings
+
+  constructor(settings: Settings) {
+    this._settings = settings
+  }
 
   private async getRequest(path: "entry.cgi" | "auth.cgi", api: string, method: string, version: number, params?: Record<string, any>) {
-    const hostname = this.settings.hostname.includes("quickconnect") ? `${this.settings.hostname.split('.')[0]}.${this.settings.region ?? "fr1"}.quickconnect.to` : this.settings.hostname
+    const hostname = this._settings.hostname.includes("quickconnect") ? `${this._settings.hostname.split('.')[0]}.${this._settings.region ?? "fr1"}.quickconnect.to` : this._settings.hostname
 
-    const url = new URL(`${this.settings.protocol}://${hostname}/webapi/${path}`);
+    const url = new URL(`${this._settings.protocol}://${hostname}/webapi/${path}`);
     url.searchParams.set("api", api);
     url.searchParams.set("method", method);
     url.searchParams.set("version", version.toString())
@@ -28,15 +32,15 @@ export class Base {
       }
     }
 
-    if (this.settings.sid) url.searchParams.set("_sid", this.settings.sid)
+    if (this._settings.sid) url.searchParams.set("_sid", this._settings.sid)
 
-    return this.settings.fetch(url, {
-      headers: this.settings.headers,
+    return this._settings.fetch(url, {
+      headers: this._settings.headers,
       redirect: "follow"
     })
   }
 
-  protected auth(method: "login", version: number, params?: Record<string, string>) {
+  protected authRequest(method: "login", version: number, params?: Record<string, string>) {
     return this.getRequest("auth.cgi", "SYNO.API.Auth", method, version, params)
   }
 
@@ -55,7 +59,7 @@ export class Base {
     }
   }
 
-  protected async request<T>(api: keyof typeof APIConfig, method: string, params?: Record<string, any>) {
-    return this.entry<T>(api, method, APIConfig[api], params)
+  protected async request<T>(api: keyof typeof APIConfig, method: string, params?: Record<string, any>, version?: number) {
+    return this.entry<T>(api, method, version ?? APIConfig[api], params)
   }
 }

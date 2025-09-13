@@ -1,17 +1,13 @@
 import { Base } from "..";
-import { VPNServerConfig, VPNServerConnections } from "./types";
+import { SettingsService } from "./settings";
+import { ManagementService } from "./management";
 
 export class VPNServer extends Base {
-  config() {
-    return this.request<VPNServerConfig>("SYNO.VPNServer.Settings.Config", "status_load")
+  get settings() {
+    return new SettingsService(this._settings)
   }
 
-  connections() {
-    return this.request<VPNServerConnections>("SYNO.VPNServer.Management.Connection", "enum", {
-      sort: "login_time",
-      dir: "DESC",
-      start: 0,
-      limit: 100
-    })
+  get management() {
+    return new ManagementService(this._settings)
   }
 }

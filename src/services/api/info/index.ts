@@ -1,7 +1,7 @@
-import { Base } from ".";
+import { Base } from "../../index";
 
-export class API extends Base {
-  info() {
+export class InfoService extends Base {
+  query() {
     return this.request<Record<string, {
       maxVersion: number
       minVersion: number

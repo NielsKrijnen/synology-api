@@ -4,11 +4,11 @@ import { Config } from "./config";
 
 export class Report extends Base {
   get analyzer() {
-    return new Analyzer(this.settings)
+    return new Analyzer(this._settings)
   }
 
   get config() {
-    return new Config(this.settings)
+    return new Config(this._settings)
   }
 
   list() {

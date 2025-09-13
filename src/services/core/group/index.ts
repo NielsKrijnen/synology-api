@@ -1,6 +1,11 @@
 import { Base } from "../../index";
+import { MemberService } from "./member";
 
 export class Group extends Base {
+  get member() {
+    return new MemberService(this._settings)
+  }
+
   list(params?: {
     user?: string
   }) {
@@ -15,22 +20,7 @@ export class Group extends Base {
     }>("SYNO.Core.Group", "list", { name_only: false, ...params })
   }
 
-  listMembers(params: {
-    group: string
-    ingroup?: boolean
-  }) {
-    return this.request<{
-      offset: number
-      total: number
-      users: {
-        description: string
-        name: string
-        uid: number
-      }[]
-    }>("SYNO.Core.Group.Member", "list", params)
-  }
-
-  getAdminCheck(params: {
+  adminCheck(params: {
     name: string | string[]
   }) {
     return this.request<{

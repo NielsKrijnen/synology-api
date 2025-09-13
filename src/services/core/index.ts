@@ -6,146 +6,83 @@ import { Group } from "./group";
 import { Upgrade } from "./upgrade";
 import { Report } from "./report";
 import { PackageService } from "./package";
+import { CMSService } from "./cms";
+import { DDNSService } from "./ddns";
+import { CertificateService } from "./certificate";
+import { ShareService } from "./share";
+import { UserService } from "./user";
+import { NetworkService } from "./network";
+import { WebService } from "./web";
+import { QuickConnectService } from "./quickconnect";
+import { ServiceService } from "./service";
+import { PortForwardingService } from "./port-forwarding";
 
 export class Core extends Base {
-  async cmsInfo() {
-    return this.request<{ joined: boolean }>("SYNO.Core.CMS.Info", "get")
+  get cms() {
+    return new CMSService(this._settings)
   }
 
   get system() {
-    return new System(this.settings)
+    return new System(this._settings)
+  }
+
+  get ddns() {
+    return new DDNSService(this._settings)
+  }
+
+  get certificate() {
+    return new CertificateService(this._settings)
   }
 
   get bandwidthControl() {
-    return new BandwidthControl(this.settings)
+    return new BandwidthControl(this._settings)
   }
 
   get hardware() {
-    return new Hardware(this.settings)
+    return new Hardware(this._settings)
   }
 
   get group() {
-    return new Group(this.settings)
+    return new Group(this._settings)
   }
 
   get upgrade() {
-    return new Upgrade(this.settings)
+    return new Upgrade(this._settings)
   }
 
   get report() {
-    return new Report(this.settings)
+    return new Report(this._settings)
   }
 
   get package() {
-    return new PackageService(this.settings)
+    return new PackageService(this._settings)
   }
 
-  listShares() {
-    return this.request<{
-      shares: {
-        desc: string
-        is_usb_share: boolean
-        name: string
-        uuid: string
-        vol_path: string
-      }[]
-      total: number
-    }>("SYNO.Core.Share", "list")
+  get share() {
+    return new ShareService(this._settings)
   }
 
-  listUsers(params?: {
-    additional?: ("email" | "description" | "expired" | "2fa_status")[]
-  }) {
-    return this.request<{
-      offset: number
-      total: number
-      users: {
-        name: string
-        email?: string
-        expired?: "normal" | "now" | string
-        "2fa_status": boolean
-      }[]
-    }>("SYNO.Core.User", "list", params)
+  get user() {
+    return new UserService(this._settings)
   }
 
-  getUser(params: {
-    name: string
-    additional?: ("description" | "email" | "expired" | "cannot_chg_passwd" | "passwd_never_expire" | "password_last_change")[]
-  }) {
-    return this.request<{
-      users: [{
-        name: string
-        uid: number
-        cannot_chg_passwd?: boolean
-        description?: string
-        email?: string
-        expired?: "normal" | "now" | string
-        passwd_never_expire?: boolean
-        password_last_change?: number
-      }]
-    }>("SYNO.Core.User", "get", params)
+  get network() {
+    return new NetworkService(this._settings)
   }
 
-  getPasswordPolicy() {
-    return this.request<{
-      enable_reset_passwd_by_email: boolean
-      password_must_change: boolean
-      strong_password: {
-        exclude_common_password: boolean
-        exclude_history: boolean
-        exclude_username: boolean
-        history_num: number
-        included_numeric_char: boolean
-        included_special_char: boolean
-        min_length: number
-        min_length_enable: boolean
-        mixed_case: boolean
-      }
-    }>("SYNO.Core.User.PasswordPolicy", "get")
+  get web() {
+    return new WebService(this._settings)
   }
 
-  getPasswordExpiry() {
-    return this.request<{
-      allow_reset_after_expired: boolean
-      enable_login_prompt: boolean
-      enable_mail_notification: boolean
-      mail_notification_days: string
-      min_age_enable: boolean
-      password_expire_enable: boolean
-    }>("SYNO.Core.User.PasswordExpiry", "get")
+  get quickconnect() {
+    return new QuickConnectService(this._settings)
   }
 
-  listNetworkInterfaces() {
-    return this.request<{
-      ifname: string
-      ip: string
-      mask: string
-      speed: number
-      status: string
-      type: string
-      use_dhcp: boolean
-    }[]>("SYNO.Core.Network.Interface", "list")
+  get service() {
+    return new ServiceService(this._settings)
   }
 
-  listSharePermissionsByUser(params: {
-    name: string
-    user_group_type: "local_user"
-  }) {
-    return this.request<{
-      shares: {
-        inherit: string
-        is_aclmode: boolean
-        is_custom: boolean
-        is_deny: boolean
-        is_mask: boolean
-        is_readonly: boolean
-        is_sync_share: boolean
-        is_unit_permission: boolean
-        is_writable: boolean
-        name: string
-        share_path: string
-      }[]
-      total: number
-    }>("SYNO.Core.Share.Permission", "list_by_user", params)
+  get portForwarding() {
+    return new PortForwardingService(this._settings)
   }
 }

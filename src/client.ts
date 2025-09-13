@@ -1,11 +1,10 @@
-import { Auth } from "./services/auth";
 import { Core } from "./services/core";
 import { DSM } from "./services/dsm";
 import { FileStation } from "./services/file-station";
 import { VPNServer } from "./services/vpn-server";
-import { API } from "./services/api";
 import { Backup } from "./services/backup";
 import { Storage } from "./services/storage";
+import { APIService } from "./services/api";
 
 type Fetch = (input: string | URL | globalThis.Request, init?: RequestInit) => Promise<Response>
 
@@ -36,7 +35,6 @@ export class SynologyAPI {
     fetch,
     hostname: ""
   }
-  private api = new API(this.settings)
 
   constructor(config: Config) {
     if (config.server.includes("quickconnect")) {
@@ -56,16 +54,12 @@ export class SynologyAPI {
     this.settings.sid = config.sid
   }
 
-  info() {
-    return this.api.info()
+  get api() {
+    return new APIService(this.settings)
   }
 
   get backup() {
     return new Backup(this.settings)
-  }
-
-  get auth() {
-    return new Auth(this.settings)
   }
 
   get core() {
@@ -84,7 +78,7 @@ export class SynologyAPI {
     return new Storage(this.settings)
   }
 
-  get vpn() {
+  get vpnServer() {
     return new VPNServer(this.settings)
   }
 }

@@ -1,7 +1,7 @@
 import { Base } from "../../index";
 
 export class Upgrade extends Base {
-  getStatus() {
+  status() {
     return this.request<{
       allow_upgrade: boolean
       status: 'none' | unknown

@@ -1,8 +1,8 @@
 import { Base } from "..";
-import { DSMInfo } from "./types";
+import { InfoService } from "./info";
 
 export class DSM extends Base {
-  info() {
-    return this.request<DSMInfo>("SYNO.DSM.Info", "getinfo")
+  get info() {
+    return new InfoService(this._settings)
   }
 }

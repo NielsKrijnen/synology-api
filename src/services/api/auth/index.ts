@@ -1,13 +1,13 @@
-import { Base } from ".";
-import { APIResponse } from "./types";
+import { Base } from "../../index";
+import { APIResponse } from "../../types";
 
-export class Auth extends Base {
+export class AuthService extends Base {
   async login(params: {
     account: string
     passwd: string
     otp_code?: string
   }) {
-    const response = await this.auth("login", 7, {
+    const response = await this.authRequest("login", 7, {
       format: "cookie",
       enable_syno_token: "yes",
       ...params

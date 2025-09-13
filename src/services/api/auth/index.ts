@@ -25,8 +25,8 @@ export class AuthService extends Base {
       throw await response.text()
     }
     if (json.success) {
-      this.settings.headers["X-SYNO-TOKEN"] = json.data.synotoken
-      this.settings.sid = json.data.sid
+      this._settings.headers["X-SYNO-TOKEN"] = json.data.synotoken
+      this._settings.sid = json.data.sid
       return json.data
     } else {
       throw json.error

@@ -5,6 +5,9 @@ import { VPNServer } from "./services/vpn-server";
 import { Backup } from "./services/backup";
 import { Storage } from "./services/storage";
 import { APIService } from "./services/api";
+import { SynologyDriveService } from "./services/synology-drive";
+import { CloudSyncService } from "./services/cloud-sync";
+import { SynologyDriveShareSyncService } from "./services/synology-drive-share-sync";
 
 type Fetch = (input: string | URL | globalThis.Request, init?: RequestInit) => Promise<Response>
 
@@ -70,12 +73,24 @@ export class SynologyAPI {
     return new DSM(this.settings)
   }
 
+  get synologyDriveShareSync() {
+    return new SynologyDriveShareSyncService(this.settings)
+  }
+
   get fileStation() {
     return new FileStation(this.settings)
   }
 
+  get cloudSync() {
+    return new CloudSyncService(this.settings)
+  }
+
   get storage() {
     return new Storage(this.settings)
+  }
+
+  get synologyDrive() {
+    return new SynologyDriveService(this.settings)
   }
 
   get vpnServer() {

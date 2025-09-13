@@ -16,6 +16,7 @@ import { WebService } from "./web";
 import { QuickConnectService } from "./quickconnect";
 import { ServiceService } from "./service";
 import { PortForwardingService } from "./port-forwarding";
+import { ExternalDeviceService } from "./external-device";
 
 export class Core extends Base {
   get cms() {
@@ -56,6 +57,10 @@ export class Core extends Base {
 
   get package() {
     return new PackageService(this._settings)
+  }
+
+  get externalDevice() {
+    return new ExternalDeviceService(this._settings)
   }
 
   get share() {

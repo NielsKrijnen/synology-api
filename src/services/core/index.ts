@@ -17,6 +17,9 @@ import { QuickConnectService } from "./quickconnect";
 import { ServiceService } from "./service";
 import { PortForwardingService } from "./port-forwarding";
 import { ExternalDeviceService } from "./external-device";
+import { DesktopService } from "./desktop";
+import { QuickStartService } from "./quickstart";
+import { BackgroundTaskService } from "./background-task";
 
 export class Core extends Base {
   get cms() {
@@ -61,6 +64,18 @@ export class Core extends Base {
 
   get externalDevice() {
     return new ExternalDeviceService(this._settings)
+  }
+
+  get desktop() {
+    return new DesktopService(this._settings)
+  }
+
+  get quickstart() {
+    return new QuickStartService(this._settings)
+  }
+
+  get backgroundTask() {
+    return new BackgroundTaskService(this._settings)
   }
 
   get share() {

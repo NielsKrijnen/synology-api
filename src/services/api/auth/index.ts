@@ -1,10 +1,15 @@
 import { Base } from "../../index";
 import { APIResponse } from "../../types";
 import { UIConfigService } from "./ui-config";
+import { TypeService } from "./type";
 
 export class AuthService extends Base {
   get uiConfig() {
     return new UIConfigService(this._settings)
+  }
+
+  get type() {
+    return new TypeService(this._settings)
   }
 
   async login(params: {

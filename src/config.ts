@@ -9,6 +9,7 @@ export const APIConfig = {
   "SYNO.Backup.Config.AutoBackup": 1,
   "SYNO.Core.System": 3,
   "SYNO.Core.Desktop.PersonalUpdater": 1,
+  "SYNO.Core.SecurityScan.Conf": 1,
   "SYNO.Core.System.Status": 1,
   "SYNO.Core.QuickStart.Info": 3,
   "SYNO.Core.System.Utilization": 1,

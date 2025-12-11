@@ -14,6 +14,7 @@ import { PortForwardingService } from "./port-forwarding"
 import { QuickConnectService } from "./quickconnect"
 import { QuickStartService } from "./quickstart"
 import { Report } from "./report"
+import { SecurityScan } from "./security-scan"
 import { ServiceService } from "./service"
 import { ShareService } from "./share"
 import { System } from "./system"
@@ -56,6 +57,10 @@ export class Core extends Base {
 
   get report() {
     return new Report(this._settings)
+  }
+
+  get securityScan() {
+    return new SecurityScan(this._settings)
   }
 
   get package() {

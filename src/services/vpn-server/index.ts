@@ -1,6 +1,6 @@
-import { Base } from "..";
-import { SettingsService } from "./settings";
-import { ManagementService } from "./management";
+import { Base } from ".."
+import { ManagementService } from "./management"
+import { SettingsService } from "./settings"
 
 export class VPNServer extends Base {
   get settings() {

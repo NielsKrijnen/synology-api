@@ -1,5 +1,5 @@
-import { Base } from "../../../index";
-import { VPNServerConfig } from "../../types";
+import { Base } from "../../../index"
+import type { VPNServerConfig } from "../../types"
 
 export class ConfigService extends Base {
   statusLoad() {

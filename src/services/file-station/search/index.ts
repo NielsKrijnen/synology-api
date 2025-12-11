@@ -1,10 +1,10 @@
-import { Base } from "../../index";
-import {
+import { Base } from "../../index"
+import type {
   FileStationListSearch,
   FileStationListSearchParams,
   FileStationParamsAdditional,
   FileStationStartSearchParams
-} from "../types";
+} from "../types"
 
 export class SearchService extends Base {
   start(params: FileStationStartSearchParams) {

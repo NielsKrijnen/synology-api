@@ -44,58 +44,76 @@ export type FileStationSharesParams<A extends string[] = FileStationParamsAdditi
   additional?: A
 }
 
-export type FileStationAdditional<A extends FileStationParamsAdditional[]> = A extends [] ? undefined : {
-  [K in A[number]]:
-    K extends "real_path" ? string :
-    K extends "volume_status" ? {
-      freespace: number
-      readonly: boolean
-      totalspace: number
-    } :
-    K extends "size" ? number :
-    K extends "type" ? string :
-    K extends "mount_point_type" ? string :
-    K extends "owner" ? {
-      gid: number
-      group: string
-      uid: number
-      user: string
-    } :
-    K extends "perm" ? {
-      acl: {
-        append: boolean
-        del: boolean
-        exec: boolean
-        read: boolean
-        write: boolean
-      }
-      acl_enable: boolean
-      adv_right: {
-        disable_download: boolean
-        disable_list: boolean
-        disable_modify: boolean
-      }
-      is_acl_mode: boolean
-      is_share_readonly: boolean
-      /**  POSIX file permission, For example, 777 means owner, group or other has all permission; 764 means owner has all permission, group has read/write permission, other has read permission. */
-      posix: number
-      /** "RW": The shared folder is writable; "RO": the shared folder is read-only. */
-      share_right: "RW" | "RO"
-    } :
-    K extends "sync_share" ? boolean :
-    K extends "time" ? {
-      /** Linux timestamp of last access in second. */
-      atime: number
-      /** Linux timestamp of create time in second. */
-      crtime: number
-      /** Linux timestamp of last change in second. */
-      ctime: number
-      /** Linux timestamp of last modification in second. */
-      mtime: number
-    } : undefined
-}
+export type FileStationAdditional<A extends FileStationParamsAdditional[]> = A extends []
+  ? undefined
+  : {
+      [K in A[number]]: K extends "real_path"
+        ? string
+        : K extends "volume_status"
+          ? {
+              freespace: number
+              readonly: boolean
+              totalspace: number
+            }
+          : K extends "size"
+            ? number
+            : K extends "type"
+              ? string
+              : K extends "mount_point_type"
+                ? string
+                : K extends "owner"
+                  ? {
+                      gid: number
+                      group: string
+                      uid: number
+                      user: string
+                    }
+                  : K extends "perm"
+                    ? {
+                        acl: {
+                          append: boolean
+                          del: boolean
+                          exec: boolean
+                          read: boolean
+                          write: boolean
+                        }
+                        acl_enable: boolean
+                        adv_right: {
+                          disable_download: boolean
+                          disable_list: boolean
+                          disable_modify: boolean
+                        }
+                        is_acl_mode: boolean
+                        is_share_readonly: boolean
+                        /**  POSIX file permission, For example, 777 means owner, group or other has all permission; 764 means owner has all permission, group has read/write permission, other has read permission. */
+                        posix: number
+                        /** "RW": The shared folder is writable; "RO": the shared folder is read-only. */
+                        share_right: "RW" | "RO"
+                      }
+                    : K extends "sync_share"
+                      ? boolean
+                      : K extends "time"
+                        ? {
+                            /** Linux timestamp of last access in second. */
+                            atime: number
+                            /** Linux timestamp of create time in second. */
+                            crtime: number
+                            /** Linux timestamp of last change in second. */
+                            ctime: number
+                            /** Linux timestamp of last modification in second. */
+                            mtime: number
+                          }
+                        : undefined
+    }
 
-export type FileStationParamsAdditional = "real_path" | "owner" | "time" | "perm" | "mount_point_type" | "sync_share" | "volume_status"
+export type FileStationParamsAdditional =
+  | "real_path"
+  | "owner"
+  | "time"
+  | "perm"
+  | "mount_point_type"
+  | "sync_share"
+  | "volume_status"
 
 export type FileStationFiles<A extends FileStationParamsAdditional[] = []> = {
   files: {
@@ -183,7 +201,10 @@ export type FileStationFilesParams<A extends string[] = FileStationParamsAdditio
   additional?: A
 }
 
-export type FileStationFile<A extends FileStationParamsAdditional[] = []> = Omit<FileStationFiles<A>, "offset" | "total">
+export type FileStationFile<A extends FileStationParamsAdditional[] = []> = Omit<
+  FileStationFiles<A>,
+  "offset" | "total"
+>
 
 export type FileStationFileParams<A extends string[] = FileStationParamsAdditional[]> = {
   path: string | string[]

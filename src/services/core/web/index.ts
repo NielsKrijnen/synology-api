@@ -1,5 +1,5 @@
-import { Base } from "../../index";
-import { DSMService } from "./dsm";
+import { Base } from "../../index"
+import { DSMService } from "./dsm"
 
 export class WebService extends Base {
   get dsm() {

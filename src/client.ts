@@ -1,13 +1,13 @@
-import { Core } from "./services/core";
-import { DSM } from "./services/dsm";
-import { FileStation } from "./services/file-station";
-import { VPNServer } from "./services/vpn-server";
-import { Backup } from "./services/backup";
-import { Storage } from "./services/storage";
-import { APIService } from "./services/api";
-import { SynologyDriveService } from "./services/synology-drive";
-import { CloudSyncService } from "./services/cloud-sync";
-import { SynologyDriveShareSyncService } from "./services/synology-drive-share-sync";
+import { APIService } from "./services/api"
+import { Backup } from "./services/backup"
+import { CloudSyncService } from "./services/cloud-sync"
+import { Core } from "./services/core"
+import { DSM } from "./services/dsm"
+import { FileStation } from "./services/file-station"
+import { Storage } from "./services/storage"
+import { SynologyDriveService } from "./services/synology-drive"
+import { SynologyDriveShareSyncService } from "./services/synology-drive-share-sync"
+import { VPNServer } from "./services/vpn-server"
 
 type Fetch = (input: string | URL | globalThis.Request, init?: RequestInit) => Promise<Response>
 
@@ -41,8 +41,8 @@ export class SynologyAPI {
 
   constructor(config: Config) {
     if (config.server.includes("quickconnect")) {
-      this.settings.headers["Referer"] = config.server
-      const quickconnectId = config.server.split('.')[0]
+      this.settings.headers.Referer = config.server
+      const quickconnectId = config.server.split(".")[0]
       this.settings.hostname = `${quickconnectId}.quickconnect.to`
       this.settings.protocol = "https"
     } else {

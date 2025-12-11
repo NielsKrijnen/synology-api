@@ -1,5 +1,5 @@
-import { Base } from "../../index";
-import { PortInfoService } from "./port-info";
+import { Base } from "../../index"
+import { PortInfoService } from "./port-info"
 
 export class ServiceService extends Base {
   get portInfo() {

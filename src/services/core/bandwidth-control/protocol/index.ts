@@ -1,5 +1,5 @@
-import { Base } from "../../../index";
-import { Protocol } from "../types";
+import { Base } from "../../../index"
+import type { Protocol } from "../types"
 
 export class ProtocolService extends Base {
   get(protocol: string) {

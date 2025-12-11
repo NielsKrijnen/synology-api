@@ -1,5 +1,5 @@
-import { Base } from "../index";
-import { ConnectionService } from "./connection";
+import { Base } from "../index"
+import { ConnectionService } from "./connection"
 
 export class SynologyDriveShareSyncService extends Base {
   get connection() {

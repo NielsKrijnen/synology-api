@@ -1,5 +1,5 @@
-import { Base } from "../../index";
-import { InfoService } from "./info";
+import { Base } from "../../index"
+import { InfoService } from "./info"
 
 export class QuickStartService extends Base {
   get info() {

@@ -1,7 +1,7 @@
-import { Base } from "../../index";
-import { APIResponse } from "../../types";
-import { UIConfigService } from "./ui-config";
-import { TypeService } from "./type";
+import { Base } from "../../index"
+import type { APIResponse } from "../../types"
+import { TypeService } from "./type"
+import { UIConfigService } from "./ui-config"
 
 export class AuthService extends Base {
   get uiConfig() {
@@ -12,11 +12,7 @@ export class AuthService extends Base {
     return new TypeService(this._settings)
   }
 
-  async login(params: {
-    account: string
-    passwd: string
-    otp_code?: string
-  }) {
+  async login(params: { account: string; passwd: string; otp_code?: string }) {
     const response = await this.authRequest("login", 7, {
       format: "cookie",
       enable_syno_token: "yes",

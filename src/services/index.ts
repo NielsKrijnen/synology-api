@@ -1,7 +1,8 @@
-import { Settings } from "../client";
-import { APIResponse } from "./types";
-import { APIConfig } from "../config";
+import type { Settings } from "../client"
+import { APIConfig } from "../config"
+import type { APIResponse } from "./types"
 
+// biome-ignore lint/suspicious/noExplicitAny: needed
 function isArray(value: any): value is Array<any> {
   return value.constructor.name === "Array"
 }
@@ -13,12 +14,21 @@ export class Base {
     this._settings = settings
   }
 
-  private async getRequest(path: "entry.cgi" | "auth.cgi", api: string, method: string, version: number, params?: Record<string, any>) {
-    const hostname = this._settings.hostname.includes("quickconnect") ? `${this._settings.hostname.split('.')[0]}.${this._settings.region ?? "fr1"}.quickconnect.to` : this._settings.hostname
+  private async getRequest(
+    path: "entry.cgi" | "auth.cgi",
+    api: string,
+    method: string,
+    version: number,
+    // biome-ignore lint/suspicious/noExplicitAny: needed
+    params?: Record<string, any>
+  ) {
+    const hostname = this._settings.hostname.includes("quickconnect")
+      ? `${this._settings.hostname.split(".")[0]}.${this._settings.region ?? "fr1"}.quickconnect.to`
+      : this._settings.hostname
 
-    const url = new URL(`${this._settings.protocol}://${hostname}/webapi/${path}`);
-    url.searchParams.set("api", api);
-    url.searchParams.set("method", method);
+    const url = new URL(`${this._settings.protocol}://${hostname}/webapi/${path}`)
+    url.searchParams.set("api", api)
+    url.searchParams.set("method", method)
     url.searchParams.set("version", version.toString())
     if (params) {
       for (const key in params) {
@@ -44,11 +54,12 @@ export class Base {
     return this.getRequest("auth.cgi", "SYNO.API.Auth", method, version, params)
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: needed
   protected async entry<T>(api: string, method: string, version: number, params?: Record<string, any>) {
     const response = await this.getRequest("entry.cgi", api, method, version, params)
     let json: APIResponse<T>
     try {
-      json = await response.clone().json()
+      json = (await response.clone().json()) as APIResponse<T>
     } catch {
       throw await response.text()
     }
@@ -59,7 +70,13 @@ export class Base {
     }
   }
 
-  protected async request<T>(api: keyof typeof APIConfig, method: string, params?: Record<string, any>, version?: number) {
+  protected async request<T>(
+    api: keyof typeof APIConfig,
+    method: string,
+    // biome-ignore lint/suspicious/noExplicitAny: needed
+    params?: Record<string, any>,
+    version?: number
+  ) {
     return this.entry<T>(api, method, version ?? APIConfig[api], params)
   }
 }

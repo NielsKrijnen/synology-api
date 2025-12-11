@@ -1,9 +1,9 @@
-import { Base } from "../../index";
-import { ProviderService } from "./provider";
-import { RecordService } from "./record";
-import { ExtIPService } from "./ext-ip";
-import { SynologyService } from "./synology";
-import { EthernetService } from "./ethernet";
+import { Base } from "../../index"
+import { EthernetService } from "./ethernet"
+import { ExtIPService } from "./ext-ip"
+import { ProviderService } from "./provider"
+import { RecordService } from "./record"
+import { SynologyService } from "./synology"
 
 export class DDNSService extends Base {
   get provider() {

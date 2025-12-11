@@ -1,5 +1,5 @@
-import { Base } from "../../index";
-import { PermissionService } from "./permission";
+import { Base } from "../../index"
+import { PermissionService } from "./permission"
 
 export class ShareService extends Base {
   get permission() {

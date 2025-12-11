@@ -1,6 +1,6 @@
-import { Base } from "../../index";
-import { InterfaceService } from "./interface";
-import { PPPoEService } from "./pppoe";
+import { Base } from "../../index"
+import { InterfaceService } from "./interface"
+import { PPPoEService } from "./pppoe"
 
 export class NetworkService extends Base {
   get interface() {

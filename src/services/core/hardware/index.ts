@@ -1,6 +1,6 @@
-import { Base } from "../../index";
-import { PowerRecoveryService } from "./power-recovery";
-import { FanSpeedService } from "./fan-speed";
+import { Base } from "../../index"
+import { FanSpeedService } from "./fan-speed"
+import { PowerRecoveryService } from "./power-recovery"
 
 export class Hardware extends Base {
   get powerRecovery() {

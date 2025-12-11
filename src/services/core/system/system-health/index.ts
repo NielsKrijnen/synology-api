@@ -1,5 +1,5 @@
-import { Base } from "../../../index";
-import { SystemHealth } from "../types";
+import { Base } from "../../../index"
+import type { SystemHealth } from "../types"
 
 export class SystemHealthService extends Base {
   get() {

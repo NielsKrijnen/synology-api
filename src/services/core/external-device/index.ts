@@ -1,5 +1,5 @@
-import { Base } from "../../index";
-import { StorageService } from "./storage";
+import { Base } from "../../index"
+import { StorageService } from "./storage"
 
 export class ExternalDeviceService extends Base {
   get storage() {

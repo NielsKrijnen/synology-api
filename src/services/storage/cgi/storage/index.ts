@@ -1,5 +1,5 @@
-import { Base } from "../../../index";
-import { StorageInfo } from "../../types";
+import { Base } from "../../../index"
+import type { StorageInfo } from "../../types"
 
 export class StorageService extends Base {
   loadInfo() {

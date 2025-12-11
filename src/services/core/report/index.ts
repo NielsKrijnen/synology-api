@@ -1,6 +1,6 @@
-import { Base } from "../../index";
-import { Analyzer } from "./analyzer";
-import { Config } from "./config";
+import { Base } from "../../index"
+import { Analyzer } from "./analyzer"
+import { Config } from "./config"
 
 export class Report extends Base {
   get analyzer() {

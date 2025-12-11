@@ -1,6 +1,6 @@
-import { Base } from "../../index";
-import { PasswordPolicyService } from "./password-policy";
-import { PasswordExpiryService } from "./password-expiry";
+import { Base } from "../../index"
+import { PasswordExpiryService } from "./password-expiry"
+import { PasswordPolicyService } from "./password-policy"
 
 export class UserService extends Base {
   get passwordPolicy() {
@@ -11,9 +11,7 @@ export class UserService extends Base {
     return new PasswordExpiryService(this._settings)
   }
 
-  list(params?: {
-    additional?: ("email" | "description" | "expired" | "2fa_status")[]
-  }) {
+  list(params?: { additional?: ("email" | "description" | "expired" | "2fa_status")[] }) {
     return this.request<{
       offset: number
       total: number
@@ -28,7 +26,14 @@ export class UserService extends Base {
 
   get(params: {
     name: string
-    additional?: ("description" | "email" | "expired" | "cannot_chg_passwd" | "passwd_never_expire" | "password_last_change")[]
+    additional?: (
+      | "description"
+      | "email"
+      | "expired"
+      | "cannot_chg_passwd"
+      | "passwd_never_expire"
+      | "password_last_change"
+    )[]
   }) {
     return this.request<{
       users: {

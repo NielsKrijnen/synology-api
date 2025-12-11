@@ -1,5 +1,5 @@
-import { Base } from "../index";
-import { ConfigService } from "./config";
+import { Base } from "../index"
+import { ConfigService } from "./config"
 
 export class Backup extends Base {
   get config() {

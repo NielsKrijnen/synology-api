@@ -1,6 +1,6 @@
-import { Base } from "../../index";
-import { StorageService } from "./storage";
-import { SmartService } from "./smart";
+import { Base } from "../../index"
+import { SmartService } from "./smart"
+import { StorageService } from "./storage"
 
 export class CGIService extends Base {
   get smart() {

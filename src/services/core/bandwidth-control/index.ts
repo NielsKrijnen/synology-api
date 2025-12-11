@@ -1,6 +1,6 @@
-import { Base } from "../..";
-import { SpeedLimits } from "./types";
-import { ProtocolService } from "./protocol";
+import { Base } from "../.."
+import { ProtocolService } from "./protocol"
+import type { SpeedLimits } from "./types"
 
 export class BandwidthControl extends Base {
   get protocol() {

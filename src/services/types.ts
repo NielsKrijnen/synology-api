@@ -1,7 +1,9 @@
-export type APIResponse<T> = {
-  data: T
-  success: true
-} | {
-  error: {}
-  success: false
-}
+export type APIResponse<T> =
+  | {
+      data: T
+      success: true
+    }
+  | {
+      error: Record<string, never>
+      success: false
+    }

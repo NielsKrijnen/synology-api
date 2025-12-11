@@ -1,4 +1,4 @@
-import { Base } from "../../../index";
+import { Base } from "../../../index"
 
 export class PasswordPolicyService extends Base {
   get() {

@@ -1,5 +1,5 @@
-import { Base } from "../../../index";
-import { HealthInfo } from "../../types";
+import { Base } from "../../../index"
+import type { HealthInfo } from "../../types"
 
 export class SmartService extends Base {
   getHealthInfo(device: string) {

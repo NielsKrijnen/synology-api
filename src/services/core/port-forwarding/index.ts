@@ -1,6 +1,6 @@
-import { Base } from "../../index";
-import { RulesService } from "./rules";
-import { RouterConfService } from "./router-conf";
+import { Base } from "../../index"
+import { RouterConfService } from "./router-conf"
+import { RulesService } from "./rules"
 
 export class PortForwardingService extends Base {
   get routerConf() {

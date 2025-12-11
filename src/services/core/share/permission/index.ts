@@ -1,10 +1,7 @@
-import { Base } from "../../../index";
+import { Base } from "../../../index"
 
 export class PermissionService extends Base {
-  listByUser(params: {
-    name: string
-    user_group_type: "local_user"
-  }) {
+  listByUser(params: { name: string; user_group_type: "local_user" }) {
     return this.request<{
       shares: {
         inherit: string

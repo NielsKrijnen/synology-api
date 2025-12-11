@@ -1,9 +1,9 @@
-import { Base } from "../..";
-import { Status } from "./status";
-import { SystemHealthService } from "./system-health";
-import { ResetButtonService } from "./reset-button";
-import { UtilizationService } from "./utilization";
-import { ProcessService } from "./process";
+import { Base } from "../.."
+import { ProcessService } from "./process"
+import { ResetButtonService } from "./reset-button"
+import { Status } from "./status"
+import { SystemHealthService } from "./system-health"
+import { UtilizationService } from "./utilization"
 
 export class System extends Base {
   get status() {
@@ -27,6 +27,7 @@ export class System extends Base {
   }
 
   info(params?: { type?: "network" | "storage_v2" }) {
+    // biome-ignore lint/suspicious/noExplicitAny: needed
     return this.request<Record<string, any>>("SYNO.Core.System", "info", {
       type: params?.type
     })
@@ -37,6 +38,6 @@ export class System extends Base {
   }
 
   reboot() {
-    return this.request("SYNO.Core.System", "reboot")
+    return this.request<Record<string, never>>("SYNO.Core.System", "reboot", {}, 2)
   }
 }

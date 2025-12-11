@@ -1,5 +1,5 @@
-import { Base } from "../../index";
-import {
+import { Base } from "../../index"
+import type {
   FileStationFile,
   FileStationFileParams,
   FileStationFiles,
@@ -7,7 +7,7 @@ import {
   FileStationParamsAdditional,
   FileStationShares,
   FileStationSharesParams
-} from "../types";
+} from "../types"
 
 export class ListService extends Base {
   listShare<A extends FileStationParamsAdditional[] = []>(params?: FileStationSharesParams<A>) {

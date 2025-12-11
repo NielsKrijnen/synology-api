@@ -1,9 +1,7 @@
-import { Base } from "../../index";
+import { Base } from "../../index"
 
 export class ConnectionService extends Base {
-  list(params?: {
-    additional?: ("tray_status" | "newest_change")[]
-  }) {
+  list(params?: { additional?: ("tray_status" | "newest_change")[] }) {
     return this.request<{
       conn: unknown[]
       is_pause: boolean

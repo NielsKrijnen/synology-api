@@ -148,9 +148,9 @@ export type SystemVolume = {
 
 export type SystemUtilization = {
   cpu: {
-    '15min_load': number
-    '1min_load': number
-    '5min_load': number
+    "15min_load": number
+    "1min_load": number
+    "5min_load": number
     device: string
     other_load: number
     system_load: number

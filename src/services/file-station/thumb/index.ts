@@ -1,5 +1,5 @@
-import { Base } from "../../index";
-import { FileStationThumbnailParams } from "../types";
+import { Base } from "../../index"
+import type { FileStationThumbnailParams } from "../types"
 
 export class ThumbService extends Base {
   get(params: FileStationThumbnailParams) {

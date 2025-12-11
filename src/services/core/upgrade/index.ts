@@ -1,5 +1,5 @@
-import { Base } from "../../index";
-import { ServerService } from "./server";
+import { Base } from "../../index"
+import { ServerService } from "./server"
 
 export class Upgrade extends Base {
   get server() {
@@ -9,7 +9,7 @@ export class Upgrade extends Base {
   status() {
     return this.request<{
       allow_upgrade: boolean
-      status: 'none' | unknown
+      status: "none" | unknown
     }>("SYNO.Core.Upgrade", "status")
   }
 

@@ -1,5 +1,5 @@
-import { Base } from "../../index";
-import { AutoBackupService } from "./auto-backup";
+import { Base } from "../../index"
+import { AutoBackupService } from "./auto-backup"
 
 export class ConfigService extends Base {
   get autoBackup() {

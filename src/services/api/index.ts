@@ -1,6 +1,6 @@
-import { Base } from "../index";
-import { InfoService } from "./info";
-import { AuthService } from "./auth";
+import { Base } from "../index"
+import { AuthService } from "./auth"
+import { InfoService } from "./info"
 
 export class APIService extends Base {
   get auth() {

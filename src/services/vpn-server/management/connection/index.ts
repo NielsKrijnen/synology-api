@@ -1,5 +1,5 @@
-import { Base } from "../../../index";
-import { VPNServerConnections } from "../../types";
+import { Base } from "../../../index"
+import type { VPNServerConnections } from "../../types"
 
 export class ConnectionService extends Base {
   enum() {

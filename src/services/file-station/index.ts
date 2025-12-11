@@ -1,8 +1,8 @@
-import { Base } from "../index";
-import { InfoService } from "./info";
-import { ListService } from "./list";
-import { SearchService } from "./search";
-import { ThumbService } from "./thumb";
+import { Base } from "../index"
+import { InfoService } from "./info"
+import { ListService } from "./list"
+import { SearchService } from "./search"
+import { ThumbService } from "./thumb"
 
 export class FileStation extends Base {
   get info() {

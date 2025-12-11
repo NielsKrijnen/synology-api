@@ -1,6 +1,6 @@
-import { Base } from "../index";
-import { DiskService } from "./disk";
-import { CGIService } from "./cgi";
+import { Base } from "../index"
+import { CGIService } from "./cgi"
+import { DiskService } from "./disk"
 
 export class Storage extends Base {
   get cgi() {

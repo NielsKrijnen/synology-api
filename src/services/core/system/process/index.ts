@@ -1,5 +1,5 @@
-import { Base } from "../../../index";
-import { SystemProcess } from "../types";
+import { Base } from "../../../index"
+import type { SystemProcess } from "../types"
 
 export class ProcessService extends Base {
   list() {

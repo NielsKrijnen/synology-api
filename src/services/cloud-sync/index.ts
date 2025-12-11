@@ -1,4 +1,4 @@
-import { Base } from "../index";
+import { Base } from "../index"
 
 export class CloudSyncService extends Base {
   listConn() {

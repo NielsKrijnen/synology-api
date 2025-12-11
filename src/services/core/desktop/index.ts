@@ -1,5 +1,5 @@
-import { Base } from "../../index";
-import { PersonalUpdaterService } from "./personal-updater";
+import { Base } from "../../index"
+import { PersonalUpdaterService } from "./personal-updater"
 
 export class DesktopService extends Base {
   get personalUpdater() {

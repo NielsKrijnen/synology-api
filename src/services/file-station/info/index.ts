@@ -1,5 +1,5 @@
-import { Base } from "../../index";
-import { FileStationInfo } from "../types";
+import { Base } from "../../index"
+import type { FileStationInfo } from "../types"
 
 export class InfoService extends Base {
   get() {

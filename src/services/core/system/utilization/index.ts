@@ -1,5 +1,5 @@
-import { Base } from "../../../index";
-import { SystemUtilization } from "../types";
+import { Base } from "../../../index"
+import type { SystemUtilization } from "../types"
 
 export class UtilizationService extends Base {
   get() {
